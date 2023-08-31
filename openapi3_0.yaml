@@ -1,0 +1,164 @@
+openapi: 3.0.3
+info:
+  title: ESTOQUE ZUP JOGOS
+  description: |-
+    O projeto  é um sistema de gerenciamento de estoque desenvolvido usando o Spring Framework juntamente com um banco de dados PostgreSQL. O objetivo principal do sistema é permitir a criação, leitura, atualização e exclusão de produtos no estoque por meio de requisições HTTP. O sistema foi projetado para ser acessado por meio de uma API RESTful, com interações simuladas usando ferramentas como o Postman.
+    
+    Seu tema é voltado para catalogar jogos, criando:
+    - Titulo
+    - Plataforma
+    - Quantidade
+    - Preço
+    
+    Ele representa um sistema básico de gerenciamento de estoque, demonstrando o uso do Spring Framework para construir uma API RESTful com operações CRUD.
+    
+
+  version: 1.0.11
+
+tags:
+  - name: ESTOQUE ZUP JOGOS
+    description: Catalogo e editar jogos
+
+paths:
+  /estoque:
+    put:
+      tags:
+        - estoque/atualizarEstoque
+      summary: Update an existing game
+      description: Update an existing game by Id
+      operationId: atualizarEstoque
+      requestBody:
+        description: Update an existent game in the store
+        content:
+          application/json:
+            schema:
+             type: array
+             items: 
+              type: object
+              properties: 
+                id:
+                  type: integer
+                titulo: 
+                  type: string
+                plataforma:
+                  type: string
+                quantidade:
+                  type: integer
+                preco:
+                  type: integer
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+
+    post:
+      tags:
+        - estoque/criar
+      summary: Add a new game to the store
+      description: Add a new game to the store
+      operationId: criar
+      requestBody:
+        description: Create a new game in the store
+        content:
+          application/json:
+            schema:
+             type: array
+             items: 
+              type: object
+              properties: 
+
+                titulo: 
+                  type: string
+                plataforma:
+                  type: string
+                quantidade:
+                  type: integer
+                preco:
+                  type: integer
+      responses:
+        '200':
+          description: Successful operation
+        '405':
+          description: Invalid input
+
+  /estoque/buscarId:
+    get:
+      tags:
+        - estoque/buscarId
+      summary: Finds Games by ID
+      operationId: buscarId
+      parameters:
+        - name: status
+          in: query
+          description: Os valores atribuidos pelo Id serão administrados pelo DTO
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: available
+            enum:
+              - available
+              - pending
+              - sold
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid status value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+
+  /estoque/:
+    get:
+      tags:
+        - estoque/buscarTodos
+      summary: Finds All games 
+      operationId: buscarTodos
+      parameters:
+        - name: tags
+          in: query
+          description: Tags to filter by
+          required: false
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid tag value
+
+    delete:
+      tags:
+        - estoque/deletarEstoque
+      summary: Deletes a Game
+      description: delete a Game
+      operationId: deletarEstoque
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: petId
+          in: path
+          description: Game id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid pet value
+
+
