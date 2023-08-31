@@ -40,20 +40,41 @@ public class EstoqueController {
     @GetMapping(path = "v1/estoque/buscarId/{id}" )
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Estoque> buscarPorId(@PathVariable("id") Long id) {
+        try{
+
         Estoque estoque = estoqueService.buscarPorId(id);
         return ResponseEntity.ok(estoque);
+        }catch (EstoqueNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("v1/estoque/atualizarEstoque/{id}")
     public ResponseEntity<Estoque> atualizarEstoque(@PathVariable Long id, @RequestBody EstoqueDTO estoqueDTO) {
+        try {
+
         Estoque estoque = estoqueService.atualizarEstoque(id, estoqueDTO);
         return ResponseEntity.ok(estoque);
+        }catch (EstoqueNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("v1/estoque/deletarEstoque/{id}")
     public ResponseEntity<Void> deletarEstoque(@PathVariable Long id) {
+        try {
+
         estoqueService.deletarEstoque(id);
         return ResponseEntity.noContent().build();
+        }catch (EstoqueNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    public class EstoqueNotFoundException extends RuntimeException {
+        public EstoqueNotFoundException(Long id) {
+            super("Estoque com ID " + id + " não encontrado.");
+        }
     }
 
 
