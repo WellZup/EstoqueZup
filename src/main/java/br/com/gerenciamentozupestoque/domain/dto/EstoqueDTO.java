@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 
 @Getter
 @Setter
@@ -18,5 +20,5 @@ public class EstoqueDTO {
 
     private Integer quantidade;
 
-    private Number preco;
+    private BigDecimal preco;
 }

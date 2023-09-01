@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 
 @Entity
@@ -24,7 +25,7 @@ public class Estoque implements Serializable {
     private String plataforma;
     @Column
     private Integer quantidade;
-    @Column
-    private Number preco;
+    @Column(precision=10, scale=2)
+    private BigDecimal preco;
 
 }

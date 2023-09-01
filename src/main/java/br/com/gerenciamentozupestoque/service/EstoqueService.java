@@ -14,7 +14,7 @@ import java.util.List;
 public class EstoqueService {
     private final EstoqueRepository estoqueRepository;
 
-    @Autowired
+
     public EstoqueService(EstoqueRepository estoqueRepository) {
         this.estoqueRepository = estoqueRepository;
     }
@@ -33,7 +33,7 @@ public class EstoqueService {
         return estoqueRepository.findAll();
     }
 
-    public Estoque buscarPorId(Long id) { return estoqueRepository.findById(id).orElseThrow(() -> new EntityNotFoundException()); }
+    public Estoque buscarPorId(Long id) { return estoqueRepository.findById(id).orElseThrow();}
 
 
     public Estoque atualizarEstoque(Long id, EstoqueDTO estoqueDTO) {

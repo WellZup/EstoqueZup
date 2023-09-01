@@ -49,7 +49,7 @@ public class TestEstoqueController {
 
         when(estoqueService.criarEstoque(Mockito.any(EstoqueDTO.class))).thenReturn(new Estoque());
 
-        mockMvc.perform(get("/v1/estoque/criar")
+        mockMvc.perform(get("/v1/estoque/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"titulo\": \"The King\", \"qantidade\": \"10\"}"))
                 .andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -70,7 +70,7 @@ public class TestEstoqueController {
 
         when(estoqueService.buscarTodoEstoque()).thenReturn(estoques);
 
-        mockMvc.perform(get("/v1/estoque/buscarTodos"))
+        mockMvc.perform(get("/v1/estoque/"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(1L))
                 .andExpect(jsonPath("$[0].titulo").value("The King"))
@@ -90,7 +90,7 @@ public class TestEstoqueController {
 
         when(estoqueService.buscarPorId(estoqueId)).thenReturn(estoque);
 
-        mockMvc.perform(get("/v1/estoque/buscarId/{id}", estoqueId))
+        mockMvc.perform(get("/v1/estoque/{id}", estoqueId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(estoqueId))
                 .andExpect(jsonPath("$.titulo").value("The King"))
@@ -107,7 +107,7 @@ public class TestEstoqueController {
         estoqueAtualizado.setId(estoqueId);
         estoqueAtualizado.setTitulo(estoqueDTO.getTitulo());
 
-        mockMvc.perform(put("/v1/estoque/atualizarEstoque/{id}", estoqueId)
+        mockMvc.perform(put("/v1/estoque/{id}", estoqueId)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(TestUtils.asJsonString(estoqueDTO)))
                 .andExpect(status().isOk());
@@ -117,7 +117,7 @@ public class TestEstoqueController {
     public void testDeletarEstoque() throws Exception {
         Long estoqueId = 1L;
 
-        mockMvc.perform(delete("/v1/estoque/deletarEstoque/{id}", estoqueId))
+        mockMvc.perform(delete("/v1/estoque/{id}", estoqueId))
                 .andExpect(status().isNoContent());
     }
 

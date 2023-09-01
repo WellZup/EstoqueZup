@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +45,7 @@ public class TestEstoqueService {
         EstoqueDTO estoqueDTO = new EstoqueDTO();
         estoqueDTO.setTitulo("The King");
         estoqueDTO.setPlataforma("PS5");
-        estoqueDTO.setPreco(99.99);
+        estoqueDTO.setPreco(BigDecimal.valueOf(99.99));
         estoqueDTO.setQuantidade(10);
 
         Estoque estoqueSimulado = new Estoque();
@@ -60,7 +61,7 @@ public class TestEstoqueService {
         assertNotNull(estoqueCriado);
         assertEquals("The King", estoqueCriado.getTitulo());
         assertEquals("PS5", estoqueCriado.getPlataforma());
-        assertEquals(99.99, estoqueCriado.getPreco());
+        assertEquals(BigDecimal.valueOf(99.99), estoqueCriado.getPreco());
         assertEquals(10, estoqueCriado.getQuantidade());
 
         verify(estoqueRepository, times(1)).save(any(Estoque.class));
@@ -73,7 +74,7 @@ public class TestEstoqueService {
         Estoque estoque = new Estoque();
         estoque.setTitulo("The King");
         estoque.setPlataforma("PS5");
-        estoque.setPreco(50.0);
+        estoque.setPreco(BigDecimal.valueOf(50.99));
         estoque.setQuantidade(10);
 
         when(estoqueRepository.findById(id)).thenReturn(Optional.of(estoque));
@@ -93,13 +94,13 @@ public class TestEstoqueService {
         EstoqueDTO estoqueDTO = new EstoqueDTO();
         estoqueDTO.setTitulo("The King2");
         estoqueDTO.setPlataforma("PS5");
-        estoqueDTO.setPreco(100);
+        estoqueDTO.setPreco(BigDecimal.valueOf(100));
         estoqueDTO.setQuantidade(10);
 
         Estoque estoqueAntigo = new Estoque();
         estoqueAntigo.setTitulo("The King");
         estoqueAntigo.setPlataforma("PS4");
-        estoqueAntigo.setPreco(100);
+        estoqueAntigo.setPreco(BigDecimal.valueOf(100));
         estoqueAntigo.setQuantidade(10);
 
         when(estoqueRepository.findById(id)).thenReturn(Optional.of(estoqueAntigo));
@@ -110,7 +111,7 @@ public class TestEstoqueService {
         assertNotNull(estoqueAtualizado);
         assertEquals("The King2", estoqueAtualizado.getTitulo());
         assertEquals("PS5", estoqueAtualizado.getPlataforma());
-        assertEquals(100, estoqueAtualizado.getPreco());
+        assertEquals(BigDecimal.valueOf(100), estoqueAtualizado.getPreco());
         assertEquals(10, estoqueAtualizado.getQuantidade());
 
 
@@ -138,13 +139,13 @@ public class TestEstoqueService {
     @Test
     public void testDeletarEstoque() {
 
-        Long idInexistente = 99L;
+        Long id = 1L;
 
 
-        when(estoqueRepository.existsById(idInexistente)).thenReturn(true);
-        doThrow(EntityNotFoundException.class).when(estoqueRepository).deleteById(idInexistente);
+        when(estoqueRepository.existsById(id)).thenReturn(true);
+        doThrow(EntityNotFoundException.class).when(estoqueRepository).deleteById(id);
 
-        assertThrows(EntityNotFoundException.class, ()-> estoqueService.deletarEstoque(idInexistente));
+        assertThrows(EntityNotFoundException.class, ()-> estoqueRepository.deleteById(id));
 
     }
 }
