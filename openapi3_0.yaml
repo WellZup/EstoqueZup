@@ -58,7 +58,7 @@ paths:
 
     post:
       tags:
-        - estoque/criar
+        - estoque/
       summary: Add a new game to the store
       description: Add a new game to the store
       operationId: criar
@@ -89,7 +89,7 @@ paths:
   /estoque/buscarId:
     get:
       tags:
-        - estoque/buscarId
+        - estoque/{id}
       summary: Finds Games by ID
       operationId: buscarId
       parameters:
@@ -118,7 +118,7 @@ paths:
   /estoque/:
     get:
       tags:
-        - estoque/buscarTodos
+        - estoque/{id}
       summary: Finds All games 
       operationId: buscarTodos
       parameters:
@@ -139,7 +139,7 @@ paths:
 
     delete:
       tags:
-        - estoque/deletarEstoque
+        - estoque/{id}
       summary: Deletes a Game
       description: delete a Game
       operationId: deletarEstoque
