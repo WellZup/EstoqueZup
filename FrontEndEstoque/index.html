@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Estoque</title>
+    <!-- links para o Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciamento de Estoque</h1>
+        <!-- Formulário para adicionar um novo item ao estoque -->
+        <form id="estoqueForm">
+            <div class="form-group">
+                <label for="titulo">Título:</label>
+                <input type="text" class="form-control" id="titulo" name="titulo" required>
+            </div>
+            <div class="form-group">
+                <label for="plataforma">Plataforma:</label>
+                <input type="text" class="form-control" id="plataforma" name="plataforma">
+            </div>
+            <div class="form-group">
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" class="form-control" id="quantidade" name="quantidade" required>
+            </div>
+            <div class="form-group">
+                <label for="preco">Preço:</label>
+                <input type="text" class="form-control" id="preco" name="preco">
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar</button>
+        </form>
+        <!-- Tabela para listar os itens do estoque -->
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Plataforma</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="estoqueTableBody">
+                <!-- Os itens do estoque serão exibidos aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- links para o Bootstrap JS e jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- JavaScript para interagir com o backend -->
+    <script src="estoque.js"></script>
+</body>
+</html>

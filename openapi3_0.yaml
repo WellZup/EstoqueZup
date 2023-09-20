@@ -52,7 +52,7 @@ paths:
         '400':
           description: Invalid ID supplied
         '404':
-          description: Pet not found
+          description: Game not found
         '405':
           description: Validation exception
 
@@ -159,6 +159,6 @@ paths:
             format: int64
       responses:
         '400':
-          description: Invalid pet value
+          description: Invalid game value
 
 

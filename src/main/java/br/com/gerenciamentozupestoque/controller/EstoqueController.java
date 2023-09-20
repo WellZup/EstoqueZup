@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RequestMapping(path = "/v1/estoque")
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:5500/")
 public class EstoqueController {
     private final EstoqueService estoqueService;
 
@@ -28,15 +29,12 @@ public class EstoqueController {
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Realiza a criação de novos itens", method = "POST")
     public ResponseEntity<Estoque> criarEstoque(@RequestBody EstoqueDTO estoqueDTO) {
-
         try {
-
         Estoque estoque = EstoqueMapper.fromDTO(estoqueDTO);
         return ResponseEntity.ok(estoqueService.criarEstoque(estoqueDTO));
         } catch (Exception e) {
             System.out.println("Erro ao criar novo item.");
-        }
-        return null;
+        } return null;
     }
 
     // TODO: 01/09/2023 Alterar a Entidade para Entidade DTO criando o mapper from to 
@@ -44,8 +42,7 @@ public class EstoqueController {
     @Operation(summary = "Realiza a busca de todos os itens cadastrados", method = "GET")
     public ResponseEntity<List<Estoque>> buscarTodoEstoque() {
         List<Estoque> estoques = estoqueService.buscarTodoEstoque();
-        return ResponseEntity.ok(estoques);
-    }
+        return ResponseEntity.ok(estoques); }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE )
     @Operation(summary = "Realiza a busca de item por ID informado", method = "GET")
@@ -55,24 +52,18 @@ public class EstoqueController {
         return ResponseEntity.ok(estoque);
         }catch (EstoqueNotFoundException e) {
             return ResponseEntity.notFound().build();
-        }catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+        }catch (Exception e) {System.out.println(e.getMessage());} return null;
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Realiza a atualização pelo ID informado", method = "PUT")
     public ResponseEntity<Estoque> atualizarEstoque(@PathVariable Long id, @RequestBody EstoqueDTO estoqueDTO) {
         try {
-
         Estoque estoque = estoqueService.atualizarEstoque(id, estoqueDTO);
         return ResponseEntity.ok(estoque);
-        }catch (EstoqueNotFoundException e) {
-            return ResponseEntity.notFound().build();
+        }catch (EstoqueNotFoundException e) {return ResponseEntity.notFound().build();
         }
     }
-
     @DeleteMapping("/{id}")
     @Operation(summary = "Deleta o item pelo ID informado", method = "DELETE")
     public ResponseEntity<Void> deletarEstoque(@PathVariable Long id) {
@@ -80,8 +71,7 @@ public class EstoqueController {
 
         estoqueService.deletarEstoque(id);
         return ResponseEntity.noContent().build();
-        }catch (EstoqueNotFoundException e) {
-            return ResponseEntity.notFound().build();
+        }catch (EstoqueNotFoundException e) {return ResponseEntity.notFound().build();
         }
     }
 

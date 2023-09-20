@@ -15,5 +15,12 @@ public class EstoqueMapper {
         return estoque;
     }
 
+    public static EstoqueDTO toDTO(Estoque estoque) {
+        EstoqueDTO dto = new EstoqueDTO();
+        dto.setPreco(estoque.getPreco());
+        dto.setQuantidade(estoque.getQuantidade());
+        return dto;
+    }
+
 
 }

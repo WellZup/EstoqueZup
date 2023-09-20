@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 @Table(name = "TB_Estoque")
 @Getter
 @Setter
-
 @NoArgsConstructor
 public class Estoque implements Serializable {
 

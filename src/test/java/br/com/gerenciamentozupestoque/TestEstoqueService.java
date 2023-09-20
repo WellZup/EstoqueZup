@@ -42,11 +42,13 @@ public class TestEstoqueService {
 
     @Test
     public void testCriarEstoque() throws Exception {
-        EstoqueDTO estoqueDTO = new EstoqueDTO();
-        estoqueDTO.setTitulo("The King");
-        estoqueDTO.setPlataforma("PS5");
-        estoqueDTO.setPreco(BigDecimal.valueOf(99.99));
-        estoqueDTO.setQuantidade(10);
+
+        final var estoqueDTO = EstoqueDTO.builder()
+                .titulo("The King")
+                .plataforma("PS5")
+                .preco(BigDecimal.valueOf(99.99))
+                .quantidade(10)
+                .build();
 
         Estoque estoqueSimulado = new Estoque();
         estoqueSimulado.setTitulo(estoqueDTO.getTitulo());
